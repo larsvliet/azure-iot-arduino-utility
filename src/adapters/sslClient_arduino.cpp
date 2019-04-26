@@ -29,10 +29,9 @@ uint8_t sslClient_connected(void)
     return (uint8_t)sslClient.connected();
 }
 
-int sslClient_connect(uint32_t ipAddress, uint16_t port)
+int sslClient_connect(const char *host, uint16_t port)
 {
-    IPAddress ip = IPAddress(ipAddress);
-    return (int)sslClient.connect(ip, port);
+    return (int)sslClient.connect(host, port);
 }
 
 void sslClient_stop(void)
@@ -66,5 +65,10 @@ uint8_t sslClient_hostByName(const char* hostName, uint32_t* ipAddress)
     uint8_t result = WiFi.hostByName(hostName, ip);
     (*ipAddress) = (uint32_t)ip;
     return result;
+}
+
+void sslClient_setCACert(const char *rootCA) 
+{
+    sslClient.setCACert(rootCA);
 }
 
